@@ -1,6 +1,11 @@
+"""
+A container of sheets
+No caching. 
+"""
 from cheat import cheatsheets
 from cheat.utils import *
 import os
+
 
 def default_path():
     """ Returns the default cheatsheet path """
@@ -29,14 +34,18 @@ def default_path():
 
 
 def get():
-    """ Assembles a dictionary of cheatsheets as name => file-path """
-    cheats = {}
+    """
+    Assembles a dictionary of cheatsheets as name => file-path
+    
+    Accessible by the main cmd chain. 
+    """
+    cheats = {}  # gets every time
 
     # otherwise, scan the filesystem
     for cheat_dir in reversed(paths()):
         cheats.update(
             dict([
-                (cheat, os.path.join(cheat_dir, cheat))
+                (cheat, os.path.join(cheat_dir, cheat))  # name => path
                 for cheat in os.listdir(cheat_dir)
                 if not cheat.startswith('.')
                 and not cheat.startswith('__')
@@ -47,7 +56,11 @@ def get():
 
 
 def paths():
-    """ Assembles a list of directories containing cheatsheets """
+    """
+    Assembles a list of directories containing cheatsheets
+    traversal of file system for multiple locations containing cheatsheets
+    """
+    
     sheet_paths = [
         default_path(),
         cheatsheets.sheets_dir()[0],

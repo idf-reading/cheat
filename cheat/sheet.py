@@ -3,8 +3,10 @@ from cheat import utils
 from cheat.utils import *
 import os
 import shutil
-import subprocess
+import subprocess # The subprocess module allows you to spawn new processes, connect to their input/output/error pipes, and obtain their return codes.
 
+# CRUD of a single sheet, accessing file system 
+# only need the file name for the sheet in underlying file system 
 
 def copy(current_sheet_path, new_sheet_path):
     """ Copies a sheet to a new path """
@@ -16,7 +18,7 @@ def copy(current_sheet_path, new_sheet_path):
     # fail gracefully if the cheatsheet cannot be copied. This can happen if
     # DEFAULT_CHEAT_DIR does not exist
     except IOError:
-        die ('Could not copy cheatsheet for editing.')
+        die ('Could not copy cheatsheet for editing.')  # warn and exit, in utils
 
 
 def create_or_edit(sheet):
@@ -42,7 +44,7 @@ def create(sheet):
     new_sheet_path = os.path.join(sheets.default_path(), sheet)
 
     try:
-        subprocess.call([editor(), new_sheet_path])
+        subprocess.call([editor(), new_sheet_path])  # subprocess calling
 
     except OSError:
         die('Could not launch ' + editor())
@@ -76,11 +78,15 @@ def is_writable(sheet):
 
 def path(sheet):
     """ Returns a sheet's filesystem path """
-    return sheets.get()[sheet]
+    return sheets.get()[sheet]  # name => path map 
 
 
 def read(sheet):
-    """ Returns the contents of the cheatsheet as a String """
+    """
+    Returns the contents of the cheatsheet as a String
+
+    Access in the main facet 
+    """
     if not exists(sheet):
         die('No cheatsheet found for ' + sheet)
 

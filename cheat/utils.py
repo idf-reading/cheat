@@ -19,7 +19,7 @@ def colorize(sheet_content):
     except ImportError:
         return sheet_content
 
-    return highlight(sheet_content, BashLexer(), TerminalFormatter())
+    return highlight(sheet_content, BashLexer(), TerminalFormatter())  # core code 
 
 
 def die(message):
@@ -57,7 +57,7 @@ def prompt_yes_or_no(question):
         get_input = input
 
     print(question)
-    return get_input('[y/n] ') == 'y'
+    return get_input('[y/n] ') == 'y'  # read from command line 
 
 
 def warn(message):

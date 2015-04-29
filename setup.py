@@ -1,5 +1,6 @@
 from distutils.core import setup
 import os
+# python setup files for distribution.
 
 setup(
     name         = 'cheat',
